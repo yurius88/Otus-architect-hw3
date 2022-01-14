@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "ICommand.h"
 #include <memory>
 #include "RepeatCommandException.h"
@@ -7,7 +7,7 @@ template<typename T>
 class RepeatCommand : public ICommand
 {
 public:
-	// repeatAttempt - максимальное кол-во повторений команды
+	// repeatAttempt - РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ РїРѕРІС‚РѕСЂРµРЅРёР№ РєРѕРјР°РЅРґС‹
 	RepeatCommand(unsigned repeatAttempt, std::shared_ptr<ICommand> cmd)
 		: _repeatAttempt(repeatAttempt),
 		_cmd(cmd)

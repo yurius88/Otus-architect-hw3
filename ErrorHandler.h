@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "ICommand.h"
 #include "LogExceptionCommand.h"
 
@@ -23,7 +23,7 @@ public:
 
 	void Handle(std::shared_ptr<ICommand> cmd, const std::exception& ex)
 	{
-		// найти в обработчике стратегию обработки ошибки
+		// РЅР°Р№С‚Рё РІ РѕР±СЂР°Р±РѕС‚С‡РёРєРµ СЃС‚СЂР°С‚РµРіРёСЋ РѕР±СЂР°Р±РѕС‚РєРё РѕС€РёР±РєРё
 		std::string exceptionName = typeid(ex).name();
 		auto result = _handlers.equal_range(typeid(*cmd.get()).name());
 		for (MMAPIterator it = result.first; it != result.second; it++)

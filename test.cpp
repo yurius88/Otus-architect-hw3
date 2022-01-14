@@ -1,4 +1,4 @@
-#include <gtest/gtest.h>
+п»ї#include <gtest/gtest.h>
 #include <queue>
 
 #include "ErrorHandler.h"
@@ -9,7 +9,7 @@
 #include "RepeatCommand.h"
 #include "RepeatCommandException.h"
 
-// команда 1 сгенерировала исключение
+// РєРѕРјР°РЅРґР° 1 СЃРіРµРЅРµСЂРёСЂРѕРІР°Р»Р° РёСЃРєР»СЋС‡РµРЅРёРµ
 TEST(HW3, Command1Exception)
 {
 	ASSERT_THROW(
@@ -19,7 +19,7 @@ TEST(HW3, Command1Exception)
 		},
 		std::exception);
 }
-// команда 2 сгенерировала исключение
+// РєРѕРјР°РЅРґР° 2 СЃРіРµРЅРµСЂРёСЂРѕРІР°Р»Р° РёСЃРєР»СЋС‡РµРЅРёРµ
 TEST(HW3, Command2Exception)
 {
 	ASSERT_THROW(
@@ -29,7 +29,7 @@ TEST(HW3, Command2Exception)
 		},
 		std::bad_alloc);
 }
-// команда 3 сгенерировала исключение
+// РєРѕРјР°РЅРґР° 3 СЃРіРµРЅРµСЂРёСЂРѕРІР°Р»Р° РёСЃРєР»СЋС‡РµРЅРёРµ
 TEST(HW3, Command3Exception)
 {
 	ASSERT_THROW(
@@ -51,21 +51,21 @@ TEST(HW3, TestHW3)
 	queue.push(cmd3);
 	
 	ErrorHandler errorHandler(&queue);
-	// запись в лог при выбросе исключения команды 1
+	// Р·Р°РїРёСЃСЊ РІ Р»РѕРі РїСЂРё РІС‹Р±СЂРѕСЃРµ РёСЃРєР»СЋС‡РµРЅРёСЏ РєРѕРјР°РЅРґС‹ 1
 	errorHandler.RegisterHandler<Command1, std::exception>(
 		std::make_shared<LogExceptionCommand<Command1, std::exception>>());
 	
-	// повтор команды, при выбросе исключения bad_alloc команды 2
+	// РїРѕРІС‚РѕСЂ РєРѕРјР°РЅРґС‹, РїСЂРё РІС‹Р±СЂРѕСЃРµ РёСЃРєР»СЋС‡РµРЅРёСЏ bad_alloc РєРѕРјР°РЅРґС‹ 2
 	errorHandler.RegisterHandler<Command2, std::bad_alloc>(
 		std::make_shared<RepeatCommand<Command2>>(1, cmd2));
-	// запись в лог при повторном исключении той команды, которую нужно повторить
+	// Р·Р°РїРёСЃСЊ РІ Р»РѕРі РїСЂРё РїРѕРІС‚РѕСЂРЅРѕРј РёСЃРєР»СЋС‡РµРЅРёРё С‚РѕР№ РєРѕРјР°РЅРґС‹, РєРѕС‚РѕСЂСѓСЋ РЅСѓР¶РЅРѕ РїРѕРІС‚РѕСЂРёС‚СЊ
 	errorHandler.RegisterHandler<RepeatCommand<Command2>, RepeatCommandException<Command2>>(
 		std::make_shared<LogExceptionCommand<RepeatCommand<Command2>, RepeatCommandException<Command2>>>());
 	
-	// дважды повтор команды, при выбросе исключения runtime_error команды 3
+	// РґРІР°Р¶РґС‹ РїРѕРІС‚РѕСЂ РєРѕРјР°РЅРґС‹, РїСЂРё РІС‹Р±СЂРѕСЃРµ РёСЃРєР»СЋС‡РµРЅРёСЏ runtime_error РєРѕРјР°РЅРґС‹ 3
 	errorHandler.RegisterHandler<Command3, std::bad_exception>(
 		std::make_shared<RepeatCommand<Command3>>(2, cmd3));
-	// запись в лог в случае дважды невыполненной команды 3
+	// Р·Р°РїРёСЃСЊ РІ Р»РѕРі РІ СЃР»СѓС‡Р°Рµ РґРІР°Р¶РґС‹ РЅРµРІС‹РїРѕР»РЅРµРЅРЅРѕР№ РєРѕРјР°РЅРґС‹ 3
 	errorHandler.RegisterHandler<RepeatCommand<Command3>, RepeatCommandException<Command3>>(
 		std::make_shared<LogExceptionCommand<RepeatCommand<Command3>, RepeatCommandException<Command3>>>());
 	
