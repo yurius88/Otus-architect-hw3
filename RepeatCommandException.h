@@ -6,7 +6,7 @@ template<typename T>
 class RepeatCommandException : public std::exception
 {
 public:
-	char const* what() const override
+	char const* what() const noexcept override
 	{
 		return "Repeat command failed";
 	}
